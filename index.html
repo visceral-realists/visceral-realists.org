@@ -1,60 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visceral Realists</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            background-color: #fff;
-            color: #333;
-            text-align: center;
-            padding: 20px;
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        text-transform: uppercase;
+        background-color: #fff;
+        color: #333;
+        text-align: center;
+        padding: 20px;
+      }
+      .container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        max-width: 800px;
+        width: 100%;
+      }
+      p {
+        font-size: 3em;
+        line-height: 1.2;
+        margin: 0;
+      }
+      a {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        margin-top: 20px;
+      }
+      a.info {
+        color: #333;
+        font-weight: normal;
+        text-decoration: underline;
+      }
+      button {
+        cursor: pointer;
+        margin-top: 50px;
+        font-size: 1.5em;
+      }
+      @media (max-width: 600px) {
+        p {
+          font-size: 2.5em;
+        }
+        button {
+          margin-top: 20px;
+          font-size: 1em;
         }
         .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 800px;
-            width: 100%;
+          font-size: 0.75em;
         }
-        p {
-            font-size: 3em;
-            line-height: 1.2;
-            margin: 0;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 600px) {
-            p {
-                font-size: 2.5em;
-            }
-            .container {
-                font-size: 0.75em;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <p>
-            Visceral Realists have performed in New York City, Philadelphia, Baltimore, Suzhou, and Shanghai.
-            <a href="https://github.com/visceral-realists/visceral-realists.org">Become viscerally real.</a>
-        </p>
+      <p>
+        Visceral Realists have performed in New York City, Philadelphia, Baltimore, Suzhou, and Shanghai.
+        <a href="https://github.com/visceral-realists/visceral-realists.org">Become viscerally real.</a>
+        <a class="info" href="/pages/1.html">More information about Visceral Realism</a>
+      </p>
     </div>
-</body>
+  </body>
 </html>

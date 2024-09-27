@@ -59,8 +59,28 @@ whenever performing or acting publically as a Visceral Realist.
 
 ## Contributing
 
-The website is built with minimally with HTML and CSS for now. Pull requests from
-the community are welcome.
+The website in this repository is built minimally with HTML and CSS. Pull
+requests from the community are welcome. Just as anyone is free to call
+themselves a Visceral Realist, anyone is welcome to contribute to this
+repository so long as they observe the following specifications:
+
+1. All pull requests must be a single HTML file.
+
+2. CSS (if any) must be embedded in a `style` element within the `head` of the
+   document. There are no stylistic rules on your content.
+
+3. All pages must include a "Become viscerally real" link that will bring the
+   user to this code repository.
+
+4. Pull requests will be augmented after the fact with navigation to future
+   pages by a repository administrator. You don't have to include this in your
+   request.
+
+5. Pull requests containing JavaScript will be closed without consideration.
+
+If you don't know much about HTML and CSS, it's quite easy to get started. Take
+advantage of online coding assistants to do the work or ask other Visceral
+Realists for assistance. There are no limits to what you can do if you try.
 
 ## Credit:
 

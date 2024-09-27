@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Live at Young Ethel's | Visceral Realists</title>
+    <style>
+      body {
+        font-family: Times, serif;
+        font-style: italic;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      main {
+        max-width: 800px;
+        padding: 20px;
+      }
+
+      header {
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin: 0;
+      }
+
+      a {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      time {
+        font-size: 0.8em;
+        color: #666;
+      }
+
+      ol {
+        list-style-type: decimal;
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      em {
+        font-style: italic;
+      }
+
+      pre {
+        font-size: 0.8em;
+        white-space: pre-line;
+        white-space: -moz-pre-wrap;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        word-wrap: break-word;
+        overflow-x: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <main aria-label="Content">
+      <div>
+        <article>
+          <div>
+            <p>A new member joins the movement, bringing new technologies in tow. Visceral Realists perform November 16th, 2023 at Young Ethel’s in the Park Slope neighborhood of Brooklyn. Performing Visceral Realists were Jessica Garson and Zona Zanjeros. The sonic mayhem created by the two culminated in Garson revealing a hammer and beginning to smash a laptop. Zanjeros and an enthusastic audience member joined in the destruction. Keys and laptop parts were distributed to the crowd afterward.</p>
+          </div>
+          <p><time>Nov 16, 2021</time></p>
+          <pre>
+            (
+            ServerOptions.inDevices.postln;
+            s.meter;
+            SynthDef(\scream, { |out|
+                var input = AudioIn.ar(1);
+                Out.ar(out, CombN.ar(input * -25.dbamp, 0.5, 0.5, 0.001))
+            }).play
+            )
+
+            /*run scream.py and make some scream samples*/
+            b = Buffer.alloc(s, 10*44100, 1);  // s=server, 10*44100 num frames, 1 = 1 channel, i.e. mono
+            b.free
+
+
+            PlayBuf
+
+            (
+            b = Buffer.read(s, "/Users/jessgarson/Documents/now.wav"); //store handle to Buffer in global variable b
+
+            SynthDef("playbuf",{ arg out=0,bufnum=0, rate=1, trigger=1, startPos=0, loop=1;
+              Out.ar(out,
+                Pan2.ar(PlayBuf.ar(1,bufnum, BufRateScale.kr(bufnum)*rate, trigger, BufFrames.ir(bufnum)*startPos, loop),0.0)
+              )
+            }).add;
+            )
+
+            Synth(\playbuf, [\out, 0, \bufnum, b.bufnum]);
+
+            Synth(\playbuf, [\out, 0, \bufnum, b.bufnum, \rate, 200.5]);
+
+            /*start with harsh noises*/
+
+            SynthDef.new("osget", { |out| Out.ar(out, [SinOsc.ar(9009, 8, 2.2),  SinTone.ar(2, 22, 4.2), PinkNoise.ar(900, 23, 1), SinOsc.ar([4000,
+            606],2,0.1)]) }).add;
+            SynthDef.new("whno", { |out| Out.ar(out, WhiteNoise.ar(20.3, 2)) }).add;
+            SynthDef.new("swish", { |out| Out.ar(out, Saw.ar(200.3, 2)*4) }).add;
+
+            x = Synth.new("osget")
+            y = Synth.new("whno")
+            m = Synth.new("swish")
+
+            x.free
+            y.free
+            m.free
+
+            with_fx :whammy do
+              with_fx :krush, mix: 0.7 do
+                with_fx :slicer, sync: :met, invert_wave: 0 do
+                  live_loop :i_dont_love_you_anymore do
+                    synth :blade
+                    synth :noise, attack: 2.3, sus: 1.2
+                    sleep 0.3
+                  end
+                end
+              end
+            end
+
+            live_loop :minus do
+              synth :bnoise, amp: 1.2
+              synth :chipnoise, sus: 2.2
+              sleep 0.3
+            end
+
+            s0.initCam()
+            src(s0).modulate(o0).luma().out()
+          </pre>
+        </article>
+      </div>
+      <p>
+        <a href="https://github.com/visceral-realists/visceral-realists.org">
+          <em>become viscerally real</em>
+        </a>
+        |
+        <a href="/pages/6.html">next</a>
+      </p>
+    </main>
+  </body>
+</html>
