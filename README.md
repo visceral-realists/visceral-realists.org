@@ -85,4 +85,4 @@ Realists for assistance. There are no limits to what you can do if you try.
 ## Credit:
 
 The name "Visceral Realists" describes a poetry movement in the 1998 novel *The
-Savage Detectives* by Chilean author Roberto Bolaño.
+Savage Detectives* by Roberto Bolaño.
