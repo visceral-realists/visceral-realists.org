@@ -27,7 +27,7 @@ Visceral Realism `MUST NOT` be boring. Visceral Realists `MAY` interpret this
 however they choose.
 
 Visceral Realists `MUST` use only open source software during performances.
-Commercial software `MUST NOT` be used.
+Commercial software or traditional musical instruments `MUST NOT` be used.
 
 Visceral Realists `MAY` synchronize their computers during performances.
 
