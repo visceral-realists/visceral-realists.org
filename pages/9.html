@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Live at The Skinny Apartment | Visceral Realists</title>
+    <style>
+      body {
+        font-family: Times, serif;
+        font-style: italic;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      main {
+        max-width: 800px;
+        padding: 20px;
+      }
+
+      header {
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 2em;
+        margin: 0;
+      }
+
+      a {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      time {
+        font-size: 0.8em;
+        color: #666;
+      }
+
+      ol {
+        list-style-type: decimal;
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      em {
+        font-style: italic;
+      }
+
+      pre {
+        font-size: 0.8em;
+        white-space: pre-line;
+        white-space: -moz-pre-wrap;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        word-wrap: break-word;
+        overflow-x: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <main aria-label="Content">
+      <div>
+        <article>
+          <div>
+            <p>
+              Another new member joins the movement, brandishing a ChucK patch, a Thinkpad running Debian, and an old Korg Nanokontrol. Visceral Realists perform April 25, 2025 at the Skinnny Apartment in Ridgewood, Queens. Performing Visceral Realists were Andy Borsz, Jessica Garson, and Dave Perrett. In pitch blackness, the trio summoned a dense, churning wall to close out the night. Karaoke ensued.
+            </p>
+          </div>
+          <p><time>Apr 25, 2025</time></p>
+          <pre>
+0 => int device;
+MidiIn min;
+MidiMsg msg;
+if ( !min.open(device) ) me.exit();
+<<<"MIDI device " + device + ": " + min.name()>>>;
+
+
+HiHat hat0 => dac;
+HiHat hat1 => dac;
+
+Dungeon dungeon0 => dac;
+Dungeon dungeon1 => dac;
+
+Sampler sampler => dac;
+
+spork ~ hat0.run();
+spork ~ hat1.run();
+spork ~ dungeon0.run();
+spork ~ dungeon1.run();
+
+spork ~ nanoKontrolListen();
+
+
+while (1)
+{
+    1::second => now;
+}
+
+fun void nanoKontrolListen()
+{
+    <<<"in nanoKontrolListen">>>;
+    while (1)  {
+       min => now;
+       while( min.recv(msg) ) {
+           // <<< msg.data1, msg.data2, msg.data3>>>;
+
+           if (msg.data2 == 2) // fader 1 - hat0 TEMPO
+           {
+               hat0.setBPM((msg.data3 * 2) + 30);
+           }
+
+           if (msg.data2 == 3) // fader 2 - hat0 VOLUME
+           {
+               if ( msg.data3 == 0 )
+               {
+                   hat0.setGain(0);
+               }
+               else {
+                   hat0.setGain(msg.data3 * (1.0 / 127));
+               }
+           }
+
+           if (msg.data2 == 14) // knob 1 - hat0 bitcrusher downsample
+           {
+               Math.floor(msg.data3 / 6) $ int => int d;
+               d + 1 => d;
+               hat0.setDownsample(d);
+           }
+
+           if (msg.data2 == 15) // knob 2 - hat0 reverb dry
+           {
+               float d;
+               // don't divide by 0!
+               if (msg.data3 == 0)
+               {
+                   0.0 => d;
+               }
+               else
+               {
+                   msg.data3 / 127.0 => d;
+               }
+
+               hat0.setReverb(d);
+           }
+
+           if (msg.data2 == 4) // fader 3 - hat1 TEMPO
+           {
+               hat1.setBPM((msg.data3 * 2) + 30);
+           }
+           if (msg.data2 == 5) // fader 4 - hat1 VOLUME
+           {
+               if (msg.data3 == 0)
+               {
+                   hat1.setGain(0);
+               }
+               else
+               {
+
+                   hat1.setGain(msg.data3 * (1.0 / 127));
+               }
+           }
+
+           if (msg.data2 == 16) // knob 3 - hat1 bitcrusher downsample
+           {
+               Math.floor(msg.data3 / 6) $ int => int d;
+               d + 1 => d;
+               hat1.setDownsample(d);
+           }
+
+           if (msg.data2 == 17) // knob 4 - hat1 reverb dry
+           {
+               float d;
+               // don't divide by 0!
+               if (msg.data3 == 0)
+               {
+                   0.0 => d;
+               }
+               else
+               {
+                   msg.data3 / 127.0 => d;
+               }
+
+               hat1.setReverb(d);
+           }
+
+           // DUNGEON 0
+           if (msg.data2 == 6) // fader 5 - dungeon VOLUME
+           {
+               if (msg.data3 == 0)
+               {
+                   dungeon0.setGain(0);
+               }
+               else
+               {
+                   dungeon0.setGain(msg.data3 * (1.0 / 127));
+               }
+           }
+
+           if (msg.data2 == 18) // knob 5 - dungeon bitcrusher
+           {
+               Math.floor(msg.data3 / 3) $ int => int d;
+               d + 1 => d;
+               dungeon0.setDownsample(d);
+
+           }
+
+           if (msg.data2 == 19) // knob 6 - dungeon reverb
+           {
+               float d;
+               // don't divide by 0!
+               if (msg.data3 == 0)
+               {
+                   0.0 => d;
+               }
+               else
+               {
+                   msg.data3 / 127.0 => d;
+               }
+
+               dungeon0.setReverb(d);
+           }
+
+           // DUNGEON 1
+           if (msg.data2 == 9) // fader 7 - dungeon VOLUME
+           {
+               if (msg.data3 == 0)
+               {
+                   dungeon1.setGain(0);
+               }
+               else
+               {
+                   dungeon1.setGain(msg.data3 * (1.0 / 127));
+               }
+           }
+
+           if (msg.data2 == 20) // knob 7 - dungeon1 bitcrusher
+           {
+               Math.floor(msg.data3 / 3) $ int => int d;
+               d + 1 => d;
+               dungeon1.setDownsample(d);
+
+           }
+
+           if (msg.data2 == 21) // knob 8 - dungeon reverb
+           {
+               float d;
+               // don't divide by 0!
+               if (msg.data3 == 0)
+               {
+                   0.0 => d;
+               }
+               else
+               {
+                   msg.data3 / 127.0 => d;
+               }
+
+               dungeon1.setReverb(d);
+           }
+
+           // SAMPLER
+           if (msg.data2 == 31 && msg.data3 == 127) // button 9 - START SAMPLE
+           {
+               spork ~ sampler.run();
+           }
+
+           if (msg.data2 == 12) // fader 8 - sampler bitcrusher
+           {
+                Math.floor(msg.data3 / 8) $ int => int d;
+                d + 1 => d;
+                sampler.setDownsample(d);
+           }
+
+           if (msg.data2 == 13) // fader 9 - sampler VOLUME
+           {
+               if (msg.data3 == 0)
+               {
+                   sampler.setGain(0);
+               }
+               else {
+                   sampler.setGain(msg.data3 * (1.0 / 127));
+               }
+           }
+
+           if (msg.data2 == 22)
+           {
+               float d;
+               // don't divide by 0!
+               if (msg.data3 == 0)
+               {
+                   0.0 => d;
+               }
+               else
+               {
+                   msg.data3 / 127.0 => d;
+               }
+
+               sampler.setReverb(d);
+           }
+
+       }
+   }
+}
+
+class HiHat extends Chugraph
+{
+    // timer
+    120 => int bpm;
+    ((60.0 / bpm) / 4) => float tick; // 16th notes
+
+
+    // Audio patch
+    SawOsc saw0 => ADSR e => HPF hipass => Bitcrusher bc => GVerb verb => Gain g => outlet;
+    SawOsc saw1 => e;
+
+    Noise n => e;
+
+    // Bitcrusher settings
+    5 => bc.bits;
+    20 => bc.downsampleFactor;
+
+    // GVerb settings
+    50 => verb.roomsize;
+    2::second => verb.revtime;
+    0.3 => verb.dry;
+
+    // DEFAULTS: 1000, 1000, 0.5, 100
+    e.set(10::ms, 10::ms, 0.5, 100::ms);
+
+    // <<<"attack:">>>;
+    // <<<e.attackTime()>>>;
+    // <<<"decay:">>>;
+    // <<<e.decayTime()>>>;
+    // <<<"sustain:">>>;
+    // <<<e.sustainLevel()>>>;
+    // <<<"release:">>>;
+    // <<<e.releaseTime()>>>;
+
+
+    4000 => hipass.freq;
+    0 => g.gain; // Start with volume down
+
+    fun void hit()
+    {
+        // Set random frequency for oscillators
+        Math.random2f(8000, 9000) => saw0.freq;
+        saw0.freq() + 3 => saw1.freq;
+
+        // Trigger envelope
+        e.keyOn();
+        50::ms => now;
+        e.keyOff();
+        3000::ms => now;
+    }
+
+    fun void setGain(float gain)
+    {
+        gain => this.g.gain;
+    }
+
+    fun void setBPM(int bpm)
+    {
+        bpm => this.bpm;
+        this.setTick(this.bpm);
+    }
+
+    fun void setTick(int bpm)
+    {
+        (60.0 / bpm) / 4 => this.tick; // 16th notes
+    }
+
+    fun void setDownsample(int d)
+    {
+        d => this.bc.downsampleFactor;
+    }
+
+    fun void setReverb(float r)
+    {
+
+        r => this.verb.dry;
+    }
+
+
+    fun void run()
+    {
+        while (1)
+        {
+
+            // maybe trigger the envelope
+            if (Math.randomf() < 0.8)
+            {
+                spork ~ this.hit();
+            }
+
+            this.tick::second => now; // 16th notes
+        }
+    }
+}
+
+
+class Dungeon extends Chugraph
+{
+    120 => int bpm;
+    float tick;
+    setTick(bpm);
+
+    SawOsc saw0 => ADSR e => LPF lopass => Bitcrusher bc => GVerb verb => Gain g => outlet;
+    SawOsc saw1 => e;
+    Noise n => e;
+
+    e.set(100::ms, 50::ms, 0.5, 3000::ms);
+
+    800 => lopass.freq;
+
+    5 => bc.bits;
+    20 => bc.downsampleFactor;
+
+    // GVerb settings
+    50 => verb.roomsize;
+    2::second => verb.revtime;
+    0.3 => verb.dry;
+
+    0 => g.gain; // start with volume down
+
+    fun void setBPM(int bpm)
+    {
+        bpm => this.bpm;
+        this.setTick(this.bpm);
+    }
+
+    fun void setTick(int bpm)
+    {
+        (60.0 / bpm) / 4 => this.tick; // 16th notes
+    }
+
+    fun void hit()
+    {
+        // Set random frequency for SawOsc
+        Math.random2f(45, 46) => saw0.freq;
+        saw0.freq() + 0.33 => saw1.freq;
+
+        // Trigger envelope
+        e.keyOn();
+        50::ms => now;
+        e.keyOff();
+        300::ms => now;
+    }
+
+    fun void hit(float min, float max)
+    {
+        // Set random frequency for SawOsc
+        Math.random2f(min, max) => saw0.freq;
+        saw0.freq() + 0.33 => saw1.freq;
+
+        // Trigger envelope
+        e.keyOn();
+        50::ms => now;
+        e.keyOff();
+        300::ms => now;
+    }
+
+    fun setGain(float g)
+    {
+        g => this.g.gain;
+    }
+
+    fun void setDownsample(int d)
+    {
+        d => this.bc.downsampleFactor;
+    }
+
+    fun void setReverb(float r)
+    {
+
+        r => this.verb.dry;
+    }
+
+    fun void run()
+    {
+        while (1)
+        {
+
+            // maybe trigger the envelope
+            if (Math.randomf() < 0.3)
+            {
+                if (Math.randomf() < 0.5)
+                {
+                    spork ~ this.hit();
+                }
+                else
+                {
+                    spork ~ this.hit(700, 750);
+                }
+            }
+
+            (this.tick)::second => now; // quarter notes
+        }
+    }
+}
+
+class Sampler extends Chugraph
+{
+    SndBuf buf("./locks.wav") => Bitcrusher bc => GVerb verb => Gain g => outlet;
+
+    0 => g.gain; // start with volume down
+
+    4 => bc.bits;
+    20 => bc.downsampleFactor;
+
+    // GVerb settings
+    50 => verb.roomsize;
+    2::second => verb.revtime;
+    0.3 => verb.dry;
+
+    fun setGain(float g)
+    {
+        g => this.g.gain;
+    }
+
+    fun void setDownsample(int d)
+    {
+        d => this.bc.downsampleFactor;
+    }
+
+    fun void setReverb(float r)
+    {
+        r => this.verb.dry;
+    }
+
+    fun void run()
+    {
+        if (buf.ready())
+        {
+            0 => buf.pos;
+            1 => buf.rate;
+
+            while (1)
+            {
+                if (buf.pos() >= buf.samples())
+                {
+                    0 => buf.pos;
+                }
+
+                1::second => now;
+            }
+        }
+    }
+}
+          </pre>
+        </article>
+      </div>
+      <p>
+        <a href="https://github.com/visceral-realists/visceral-realists.org">
+          <em>become viscerally real</em>
+        </a>
+        |
+        <a href="/"><em>next</em></a>
+      </p>
+    </main>
+  </body>
+</html>
